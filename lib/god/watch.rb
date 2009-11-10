@@ -4,7 +4,7 @@ require 'forwardable'
 module God
   
   class Watch < Task
-    VALID_STATES = [:init, :up, :start, :restart]
+    VALID_STATES = [:init, :up, :start, :restart, :down]
     INITIAL_STATE = :init
     
     # config

@@ -16,6 +16,7 @@ end
 
 # stdlib
 
+
 # internal requires
 require 'god/errors'
 require 'god/simple_logger'
@@ -37,6 +38,7 @@ require 'god/behaviors/clean_unix_socket'
 require 'god/behaviors/notify_when_flapping'
 
 require 'god/condition'
+require 'god/conditions/ping'
 require 'god/conditions/process_running'
 require 'god/conditions/process_exits'
 require 'god/conditions/tries'
@@ -51,8 +53,11 @@ require 'god/conditions/disk_usage'
 require 'god/conditions/complex'
 require 'god/conditions/file_mtime'
 
+
+
 require 'god/contact'
 require 'god/contacts/email'
+require 'god/contacts/sms'
 require 'god/contacts/webhook'
 begin
   require 'god/contacts/twitter'
