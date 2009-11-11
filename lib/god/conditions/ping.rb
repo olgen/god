@@ -19,15 +19,8 @@ module God
       end
       
       def test
-#        ping_time = `df -P | grep -i " #{self.mount_point}$" | awk '{print $5}' | sed 's/%//'`
-
-        cmd = "ping -t #{self.timeout} #{self.host}"
-        # puts cmd
+        cmd = "ping -W #{self.timeout} -c 5 #{self.host}"
         ping_result = `#{cmd}`
-        # if ping_result=~ /no route to host/
-        #   self.info "no route to host: #{self.host}"
-        #   return false
-        # end
         if ping_result=~/time=/
           self.info = "Server reachable via ping!"
           return self.trigger_on
