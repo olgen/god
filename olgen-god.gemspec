@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{olgen-god}
-  s.version = "0.8.0"
+  s.version = "0.8.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tom Preston-Werner, Eugen Martin"]
@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
      "ext/god/extconf.rb",
      "ext/god/kqueue_handler.c",
      "ext/god/netlink_handler.c",
-     "god.gemspec",
      "ideas/execve/.DS_Store",
      "ideas/execve/execve.c",
      "ideas/execve/extconf.rb",
@@ -95,6 +94,7 @@ Gem::Specification.new do |s|
      "lib/god/timeline.rb",
      "lib/god/trigger.rb",
      "lib/god/watch.rb",
+     "olgen-god.gemspec",
      "site/images/banner.jpg",
      "site/images/bg.gif",
      "site/images/bg_grey.gif",
