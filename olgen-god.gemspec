@@ -4,15 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{god}
-  s.version = "0.7.22"
+  s.name = %q{olgen-god}
+  s.version = "0.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Tom Preston-Werner"]
-  s.date = %q{2009-10-29}
+  s.authors = ["Tom Preston-Werner, Eugen Martin"]
+  s.date = %q{2009-11-11}
   s.default_executable = %q{god}
-  s.description = %q{God is an easy to configure, easy to extend monitoring framework written in Ruby.}
-  s.email = %q{tom@mojombo.com}
+  s.description = %q{Fork of God - God is an easy to configure, easy to extend monitoring framework written in Ruby.}
+  s.email = %q{eugen.martin@madvertise.de}
   s.executables = ["god"]
   s.extensions = ["ext/god/extconf.rb"]
   s.extra_rdoc_files = [
@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
      "lib/god/conditions/http_response_code.rb",
      "lib/god/conditions/lambda.rb",
      "lib/god/conditions/memory_usage.rb",
+     "lib/god/conditions/ping.rb",
      "lib/god/conditions/process_exits.rb",
      "lib/god/conditions/process_running.rb",
      "lib/god/conditions/tries.rb",
@@ -68,6 +69,7 @@ Gem::Specification.new do |s|
      "lib/god/contacts/campfire.rb",
      "lib/god/contacts/email.rb",
      "lib/god/contacts/jabber.rb",
+     "lib/god/contacts/sms.rb",
      "lib/god/contacts/twitter.rb",
      "lib/god/contacts/webhook.rb",
      "lib/god/dependency_graph.rb",
@@ -83,6 +85,7 @@ Gem::Specification.new do |s|
      "lib/god/process.rb",
      "lib/god/registry.rb",
      "lib/god/simple_logger.rb",
+     "lib/god/smtp_tls.rb",
      "lib/god/socket.rb",
      "lib/god/sugar.rb",
      "lib/god/system/portable_poller.rb",
@@ -164,12 +167,11 @@ Gem::Specification.new do |s|
      "test/test_watch.rb",
      "test/test_webhook.rb"
   ]
-  s.homepage = %q{http://god.rubyforge.org/}
+  s.homepage = %q{http://github.com/olgen/god}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib", "ext"]
-  s.rubyforge_project = %q{god}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Like monit, only awesome}
+  s.summary = %q{Like god, but olgen!}
   s.test_files = [
     "test/configs/child_events/simple_server.rb",
      "test/configs/child_polls/simple_server.rb",
