@@ -70,7 +70,9 @@ module God
                     :port,         # e.g. 8080
                     :timeout,      # e.g. 60.seconds
                     :path,         # e.g. '/'
-                    :headers       # e.g. {'Host' => 'myvirtual.mydomain.com'}
+                    :headers,      # e.g. {'Host' => 'myvirtual.mydomain.com'}
+                    :method,       # e.g. :post, :get
+                    :data     # e.g. {:ua=>"Mozilla 3.5"}
       
       def initialize
         super
@@ -79,6 +81,7 @@ module God
         self.headers = {}
         self.times = [1, 1]
         self.timeout = 60.seconds
+        self.method = :get
       end
       
       def prepare
@@ -101,18 +104,28 @@ module God
       def valid?
         valid = true
         valid &= complain("Attribute 'host' must be specified", self) if self.host.nil?
+        valid &= complain("Attribute 'method' must be in [:get, :post]", self) if ![:get, :post].include?(self.method)
         valid &= complain("One (and only one) of attributes 'code_is' and 'code_is_not' must be specified", self) if
           (self.code_is.nil? && self.code_is_not.nil?) || (self.code_is && self.code_is_not)
         valid
       end
       
+
       def test
         response = nil
-        
         Net::HTTP.start(self.host, self.port) do |http|
           http.read_timeout = self.timeout
-          response = http.get(self.path, self.headers)
+          if self.method == :get
+            response = http.get(self.path, self.headers)
+          else self.method == :post
+            req = Net::HTTP::Post.new(self.path, self.headers)
+            req.set_form_data(self.data, ';') if self.data
+            response =  http.request(req)
+          end
         end
+        
+        # require 'ruby-debug'; debugger
+        
         
         actual_response_code = response.code.to_i
         if self.code_is && self.code_is.include?(actual_response_code)
@@ -141,17 +154,17 @@ module God
       def pass(code)
         @timeline << true
         if @timeline.select { |x| x }.size >= self.times.first
-          self.info = "http response abnormal #{history(code, true)}"
+          self.info = "http response 1abnormal #{history(code, true)}"
           true
         else
-          self.info = "http response nominal #{history(code, true)}"
+          self.info = "http response 2nominal #{history(code, true)}"
           false
         end
       end
       
       def fail(code)
         @timeline << false
-        self.info = "http response nominal #{history(code, false)}"
+        self.info = "http response 3nominal #{history(code, false)}"
         false
       end
       
