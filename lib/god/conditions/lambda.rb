@@ -2,6 +2,7 @@ module God
   module Conditions
     
     class Lambda < PollCondition
+      include ConditionHelper
       attr_accessor :lambda, :times
 
       def initialize
@@ -13,7 +14,6 @@ module God
         if self.times.kind_of?(Integer)
           self.times = [self.times, self.times]
         end
-        
         @timeline = Timeline.new(self.times[1])
       end
       
@@ -23,16 +23,8 @@ module God
         valid
       end
 
-      def test
-          @timeline.push self.lambda.call()
-          history = "TRUE [#{@timeline.select { |x| x }.size}/#{@timeline.length}]"
-          if @timeline.select { |x| x }.size >= self.times.first
-            self.info = "lambda PASSED #{history}"
-            return true
-          else
-            self.info = "lambda FAILED #{history}"
-            return false
-          end        
+      def test  
+        return timeline_test(self.lambda.call)
       end
 
     end

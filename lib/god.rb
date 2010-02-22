@@ -38,6 +38,7 @@ require 'god/behaviors/clean_unix_socket'
 require 'god/behaviors/notify_when_flapping'
 
 require 'god/condition'
+require 'god/conditions/condition_helper'
 require 'god/conditions/ping'
 require 'god/conditions/process_running'
 require 'god/conditions/process_exits'

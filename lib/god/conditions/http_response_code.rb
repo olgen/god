@@ -63,6 +63,7 @@ module God
     #     c.timeout = 10
     #   end
     class HttpResponseCode < PollCondition
+      include ConditionHelper
       attr_accessor :code_is,      # e.g. 500 or '500' or [404, 500] or %w{404 500}
                     :code_is_not,  # e.g. 200 or '200' or [200, 302] or %w{200 302}
                     :times,        # e.g. 3 or [3, 5]
@@ -79,7 +80,7 @@ module God
         self.port = 80
         self.path = '/'
         self.headers = {}
-        self.times = [1, 1]
+        self.times = [3, 5]
         self.timeout = 60.seconds
         self.method = :get
       end
@@ -152,20 +153,13 @@ module God
       private
       
       def pass(code)
-        @timeline << true
-        if @timeline.select { |x| x }.size >= self.times.first
           self.info = "http response 1abnormal #{history(code, true)}"
-          true
-        else
-          self.info = "http response 2nominal #{history(code, true)}"
-          false
-        end
+          return timeline_test(true)
       end
       
       def fail(code)
-        @timeline << false
         self.info = "http response 3nominal #{history(code, false)}"
-        false
+        return timeline_test(false)
       end
       
       def history(code, passed)
@@ -174,6 +168,21 @@ module God
         @history << entry
         '[' + @history.join(", ") + ']'
       end
+      
+      # def timeline_test(res)
+      #   @timeline << res
+      #   history = " - SUCCESS RATE: [#{@timeline.select { |x| x }.size}/#{@timeline.length}]"
+      #   if @timeline.select { |x| x }.size >= self.times[0]
+      #     self.info = " PASSED #{history}"
+      #     return true
+      #   elsif @timeline.select { |x| !x }.size > self.times[1] - self.times[0]
+      #     self.info = " FAILED #{history}"
+      #     return false
+      #   else
+      #     self.info = "history too short: #{history}"
+      #     return nil # do not trigger a transition
+      #   end
+      # end
       
     end
     
