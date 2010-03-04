@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{olgen-god}
-  s.version = "0.8.2"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tom Preston-Werner, Eugen Martin"]
-  s.date = %q{2009-11-11}
+  s.date = %q{2010-02-22}
   s.default_executable = %q{god}
   s.description = %q{Fork of God - God is an easy to configure, easy to extend monitoring framework written in Ruby.}
   s.email = %q{eugen.martin@madvertise.de}
@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
      "lib/god/condition.rb",
      "lib/god/conditions/always.rb",
      "lib/god/conditions/complex.rb",
+     "lib/god/conditions/condition_helper.rb",
      "lib/god/conditions/cpu_usage.rb",
      "lib/god/conditions/degrading_lambda.rb",
      "lib/god/conditions/disk_usage.rb",
@@ -170,7 +171,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/olgen/god}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib", "ext"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Like god, but olgen!}
   s.test_files = [
     "test/configs/child_events/simple_server.rb",

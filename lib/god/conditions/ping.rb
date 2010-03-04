@@ -2,13 +2,22 @@ module God
   module Conditions
     
     class Ping < PollCondition
-      attr_accessor :timeout, :host, :trigger_on
+      include ConditionHelper
+      attr_accessor :timeout, :host, :trigger_on, :times
       
       def initialize
         super
         self.timeout = 2 # s
         self.host = nil
         self.trigger_on=true
+        self.times = [1, 1]
+      end
+
+      def prepare
+        if self.times.kind_of?(Integer)
+          self.times = [self.times, self.times]
+        end
+        @timeline = Timeline.new(self.times[1])
       end
       
       def valid?
@@ -23,10 +32,10 @@ module God
         ping_result = `#{cmd}`
         if ping_result=~/time=/
           self.info = "Server reachable via ping!"
-          return self.trigger_on
+          return timeline_test(self.trigger_on)
         end
         self.info = "Server unreachable via ping!!!"
-        return !self.trigger_on
+        return timeline_test(!self.trigger_on)
       end
     end
   end

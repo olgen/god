@@ -73,7 +73,8 @@ module God
                     :path,         # e.g. '/'
                     :headers,      # e.g. {'Host' => 'myvirtual.mydomain.com'}
                     :method,       # e.g. :post, :get
-                    :data     # e.g. {:ua=>"Mozilla 3.5"}
+                    :data,     # e.g. {:ua=>"Mozilla 3.5"}
+                    :trigger_on   # can trigger both on: true or false
       
       def initialize
         super

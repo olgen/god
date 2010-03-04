@@ -3,18 +3,23 @@ module God
     
     class Lambda < PollCondition
       include ConditionHelper
-      attr_accessor :lambda, :times
+      attr_accessor :lambda, :times,:trigger_on   # can trigger both on: true or false
 
       def initialize
         super
+        self.trigger_on = true
         self.times = [1, 1]
       end
-      
+        
       def prepare
         if self.times.kind_of?(Integer)
           self.times = [self.times, self.times]
         end
         @timeline = Timeline.new(self.times[1])
+      end
+      
+      def reset
+        @timeline.clear
       end
       
       def valid?
@@ -26,7 +31,6 @@ module God
       def test  
         return timeline_test(self.lambda.call)
       end
-
     end
 
   end
