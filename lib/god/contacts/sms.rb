@@ -32,7 +32,7 @@ module God
 <<-EOF
 From: god <#{self.message_settings[:from]}>
 To: sms-gateway #{self.message_settings[:gateway_email]}>
-Subject: [message from god] #{message}; Host: #{host}; Priority: #{priority}; Category: #{category}
+Subject: [message from god] #{message}; Host: #{host};
 Date: #{Time.now.httpdate}
 Message-Id: <#{rand(1000000000).to_s(36)}.#{$$}.#{self.message_settings[:from]}>
 

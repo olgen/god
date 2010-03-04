@@ -34,8 +34,6 @@ Message-Id: <#{rand(1000000000).to_s(36)}.#{$$}.#{self.message_settings[:from]}>
 
 Message: #{message}
 Host: #{host}
-Priority: #{priority}
-Category: #{category}
         EOF
       end
       

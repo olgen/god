@@ -32,10 +32,10 @@ module God
         ping_result = `#{cmd}`
         if ping_result=~/time=/
           self.info = "Server reachable via ping!"
-          return timeline_test(self.trigger_on)
+          return timeline_test(true)
         end
         self.info = "Server unreachable via ping!!!"
-        return timeline_test(!self.trigger_on)
+        return timeline_test(false)
       end
     end
   end
